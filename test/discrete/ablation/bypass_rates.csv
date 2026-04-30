@@ -1,4 +1,4 @@
 Condition,MLP-STD,MLP-ADV,OpenAI,DistilRoBERTa,DeBERTa,Mean BR
-A: Full Pipeline,71.4,14.3,,7.1,42.9,33.9
-B: No SR,100.0,7.1,,0.0,28.6,33.9
-C: Random Init,78.6,0.0,,0.0,50.0,32.2
+A: Full Pipeline,78.6,14.3,,7.1,42.9,35.7
+B: No SR,100.0,0.0,,0.0,42.9,35.7
+C: Random Init,92.9,0.0,,7.1,50.0,37.5
