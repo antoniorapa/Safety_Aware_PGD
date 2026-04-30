@@ -1,0 +1,35 @@
+{
+  "_class_name": "StableDiffusionPipeline",
+  "_diffusers_version": "0.29.1",
+  "_name_or_path": "runwayml/stable-diffusion-v1-5",
+  "feature_extractor": [
+    "transformers",
+    "CLIPImageProcessor"
+  ],
+  "image_encoder": [
+    null,
+    null
+  ],
+  "requires_safety_checker": false,
+  "safety_checker": [null],
+  "scheduler": [
+    "diffusers",
+    "PNDMScheduler"
+  ],
+  "text_encoder": [
+    "transformers",
+    "CLIPTextModel"
+  ],
+  "tokenizer": [
+    "transformers",
+    "CLIPTokenizer"
+  ],
+  "unet": [
+    "diffusers",
+    "UNet2DConditionModel"
+  ],
+  "vae": [
+    "diffusers",
+    "AutoencoderKL"
+  ]
+}

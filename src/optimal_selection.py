@@ -109,12 +109,13 @@ def encode_text_embedding_batch(text_embedding, eos_pos,model):
     shared_info['eos_positions'] = eos_pos
     cast_dtype = model.transformer.get_cast_dtype()
 
-    x = text_embedding + model.positional_embedding.to(cast_dtype)  # (batch_size, seq_len, f_dim)
+    x = text_embedding + model.positional_embedding.to(cast_dtype)  # [B, T, E]
 
-    x = model.transformer(
-        x.permute(1, 0, 2),
-        attn_mask=model.attn_mask
-    ).permute(1, 0, 2)
+    # open_clip ≥2.20 uses batch_first=True (expects [B,T,E]); older used [T,B,E]
+    if getattr(model.transformer, 'batch_first', False):
+        x = model.transformer(x, attn_mask=model.attn_mask)
+    else:
+        x = model.transformer(x.permute(1, 0, 2), attn_mask=model.attn_mask).permute(1, 0, 2)
 
     x = model.ln_final(x)  # Shape: (batch_size, seq_len, f_dim)
 

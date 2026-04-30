@@ -1,0 +1,43 @@
+# Core ML — match the existing CUDA 12.4 environment
+# Install torch separately first with the CUDA index URL (see setup instructions)
+torch==2.6.0
+torchvision==0.21.0
+
+# CLIP backbone
+open-clip-torch==2.30.0
+ftfy
+
+# HuggingFace stack
+transformers>=4.41.2
+sentence-transformers>=2.7.0
+huggingface_hub>=0.27
+safetensors
+tokenizers
+
+# Moderation / scoring APIs
+openai>=1.35.3
+requests
+
+# Interpretability (Integrated Gradients in optimal_selection.py)
+captum>=0.7.0
+
+# Data
+pandas>=2.2
+pyarrow>=15.0
+numpy>=1.26
+
+# Plotting
+matplotlib
+seaborn
+
+# Utils
+tqdm
+Pillow
+scikit-learn
+scipy
+python-dotenv
+
+# Jupyter
+ipykernel
+ipywidgets
+jupyterlab

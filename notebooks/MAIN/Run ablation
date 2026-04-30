@@ -1,0 +1,24 @@
+RUN 5_ABLATION_SAFE_REPLACEMENTS.ipynb
+
+  # 1. Crea il venv nella root del progetto
+  cd C:\Users\giand\Desktop\prog\Safety_Aware_PGD
+  python -m venv venv_ablation
+
+  # 2. Attivalo
+  venv_ablation\Scripts\activate
+
+  # 3. Installa PyTorch con CUDA 12.4 PRIMA del resto
+  pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
+
+  # 4. Installa tutte le altre dipendenze
+  pip install -r requirements_ablation.txt
+
+  # 5. Registra il kernel Jupyter
+  python -m ipykernel install --user --name venv_ablation --display-name "Safety-Aware PGD (ablation)"
+
+  # 6. Avvia JupyterLab
+  jupyter lab
+
+  Una volta aperto JupyterLab, nel notebook vai su Kernel → Change Kernel e seleziona "Safety-Aware PGD (ablation)".
+
+  ▎ Nota: il passo 3 scarica ~2.5 GB (torch con CUDA), il resto è ~1-2 GB. La prima volta ci vuole un po'.

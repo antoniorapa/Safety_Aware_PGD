@@ -1,0 +1,13 @@
+{
+    "prompt_len": 32,
+    "iter": 300,
+    "lr": 0.1,
+    "weight_decay": 0.1,
+    "prompt_bs": 1,
+    "loss_weight": 1,
+    "print_step": 100,
+    "batch_size": 1,
+    "clip_model": "ViT-bigG-14",
+    "clip_pretrain": "laion2b_s39b_b160k",
+    "fluency_weight": 0.03
+}

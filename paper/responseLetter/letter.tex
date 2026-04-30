@@ -1,0 +1,174 @@
+\documentclass{ar2rc}
+
+\usepackage{verbatim}
+\usepackage{soul}
+\usepackage{comment}
+\usepackage{xspace}
+\setstcolor{red}
+\newcommand{\virgolette}[1]{``#1''}
+\newcommand{\virgolettenorm}[1]{``#1''}
+\newcommand{\g}[1]{\gradientcelld{#1}{0}{0.5}{1}{red}{white}{green}{50}}
+\newcommand{\gnlp}[1]{\gradientcelld{#1}{0}{0.87}{1}{white}{white}{green}{50}}
+\definecolor{unsafeColor}{HTML}{fdaf8c}
+\definecolor{safeColor}{HTML}{A9C0EC}
+\definecolor{advColor}{HTML}{D494DB}
+\definecolor{adv2Color}{HTML}{F4F297}
+
+\newcommand{\unsafeCircle}{\tikz \draw[black, fill=unsafeColor, line width=0.5pt] (0,0) circle (0.15cm);}
+\newcommand{\safeCircle}{\tikz \draw[black, fill=safeColor, line width=0.5pt] (0,0) circle (0.15cm);}
+\newcommand{\advCircle}{\tikz \draw[black, fill=advColor, line width=0.5pt] (0,0) circle (0.15cm);}
+\newcommand{\advCircleOur}{\tikz \draw[black, fill=adv2Color, line width=0.5pt] (0,0) circle (0.15cm);}
+
+\setlength{\textfloatsep}{5pt plus 1.0pt minus 2.0pt}
+
+\newcommand{\datacentok}{\textsc{NSFWGuard}\xspace}
+\newcommand{\dataset}{\textsc{MEDIETHIC}\xspace}
+\newcommand{\datasetlite}{\textsc{MEDIETHIC-600}\xspace}
+\newcommand{\dalle}{DALL·E\xspace}
+\newcommand{\imagen}{IMAGEN\xspace}
+\newcommand{\gpt}{GPT4o\xspace}
+\newcommand{\gemini}{Gemini\xspace}
+\newcommand{\virgolette}[1]{``#1''}
+\newcommand{\ste}[1]{\textcolor{red}{[Stefano: #1]}}   
+\newcommand{\giando}[1]{\textcolor{teal}{Giando: #1}} 
+\newcommand{\laura}[1]{\textcolor{blue}{Laura: #1}} 
+\newcommand{\colortext}{\color{blue}}
+\newcommand{\colortextunsecure}{\color{orange}}
+
+\definecolor{color1bg}{HTML}{f5a9b3}
+\definecolor{color2bg}{HTML}{adf288}
+%\definecolor{color3bg}{HTML}{#4EF547}
+
+\newcommand{\clipscore}[1]{\gradientcelld{#1}{0.0}{0.20}{0.40}{color1bg}{white}{color2bg}{}}
+
+\newcommand{\li}[1]{\gradientcelld{#1}{0.0}{0.50}{1}{color2bg}{white}{color1bg}{}}
+\newcommand{\la}[1]{\gradientcelld{#1}{0.0}{15}{100}{color1bg}{white}{color2bg}{}}
+\newcommand{\labis}[1]{\gradientcelld{#1}{5}{70}{100}{color1bg}{white}{color2bg}{}}
+
+\newcommand{\percentage}[1]{\gradientcelld{#1}{0}{50}{100}{color1bg}{white}{color2bg}{}}
+\title{A Safety-aware Jailbreak Approach to Bypass Security Filters for Generating Harmful Media with Text-to-Image models}
+
+\author{Stefano Cirillo$^a$, Laura De Santis$^a$, Rita Francese$^a$, Giandomenico Solimando$^a$}
+\journal{ACM Transactions on Intelligent Systems and Technology}
+
+\affiliation{$^a$Department of Computer Science, University of Salerno, Fisciano, Italy}
+
+\begin{document}
+
+\maketitle
+\vspace{-0.2cm}
+
+{\hl{(Revision time limit: 30 days)}We would like to thank the Editor in Chief, the Associate Editor, and the anonymous Reviewers for their helpful comments, which helped us to revise this paper, aiming to improve its quality. We addressed all of their comments and thoroughly analyzed their recommended changes. In the following, we detail the actions undertaken to address each Reviewer's specific request.}
+
+
+\section{Reviewer \#1} 
+
+\RC The work is overall very good and comprehensive.
+I strongly encourage the authors to try to describe the threat model I suggested in the weaknesses section. It would definitely benefit the overall solidity of the paper.
+
+\RC What do you see as the <b> three weakest points </b> of this manuscript?: 
+
+    \RC 1: No discussion of the threat model. A formal threat model is essential for contextualizing the significance of the proposed jailbreak technique and, more importantly, for properly evaluating the robustness of the proposed defense mechanism against a wider range of potential threats beyond the one demonstrated. The authors should explicitly define the adversary they are defending against. For instance, what knowledge of the system is the attacker assumed to possess? What are their computational resources? Currently, the defense is evaluated primarily against the authors' own novel attack. A threat model would provide the necessary framework to discuss the defense's resilience against other potential attack strategies and capabilities, making the evaluation more comprehensive.
+
+    
+    \RC 2: No description of the manual validation processes described in the manuscript. Describing in detail how your evaluators rated the content (publishing the codebook for example) or showing the inter rater agreement would strengthen your methodology and enhance the reproducibility.
+    \hl{Recuperare dal paper del datset. GIANDO}
+
+    
+    \RC 3:No discussion of the work’s limitations before the conclusions.
+
+\AR 
+
+\section{Reviewer \#2} 
+\RC What do you see as the <b> three weakest points </b> of this manuscript?:
+
+    \RC  1. 4.1 Regarding the safe replacements section, it converges with subsequent PGD, and there is no ablation experiment to prove the necessity of this module. \hl{CODICE DA INVIARE A GIANDO}
+
+       \AC Fare un ablation study andando a togliere il "safe replacements" e nel caso aggiungere anche ablation su threshold usate nel "safe replacements"
+
+    \RC 2. In the experiment, there are still too few victim models. Experiments were only conducted on imagen and Dalle. If the attack effects of some other text-to-image models are supplemented, it will increase the influence of the paper. \hl{CODICE DA INVIARE A GIANDO}
+
+       \AC 
+
+       
+    \RC 3. The article states that the PEZ method is adopted for black boxes, but this method requires multiple queries. The article does not explain the corresponding costs and lacks relevant experiments.\hl{CODICE DA INVIARE A GIANDO}
+
+   \AC Fare un ablation study andando a togliere il "safe replacements" e nel caso aggiungere anche ablation su threshold usate nel "safe replacements"
+
+\AR 
+
+\section{Reviewer \#3} 
+
+    \RC 1. The objective described at the beginning of Section 4.2 could be clarified. Given that Section 4.1 already focuses on bypassing safety checks, Section 4.2 seems primarily aimed at preserving the harmful semantic intent, and explicitly stating this would improve clarity.
+
+    \AC \giando{La ringraziamo per il commento costruttivo zucchero. Abbiamo revisionato la Sezione 4.3 – Safety Aware Projected Gradient Descent (PGD) al fine di chiarire esplicitamente l’obiettivo del modulo. In particolare, abbiamo evidenziato in modo più netto la distinzione rispetto alla Sezione 4.2 – Optimal Replacement: mentre quest’ultima è focalizzata sull’identificazione e sostituzione dei token per aggirare i controlli di sicurezza, la Sezione 4.3 è ora esplicitamente descritta come finalizzata a preservare l’intento semantico dannoso del prompt originale riducendone al contempo la rilevabilità. Questa modifica migliora la chiarezza della pipeline proposta e rende più evidente il ruolo specifico di ciascun modulo.}
+
+    \RC 2. Since the proposed method relies heavily on the safety filter function, a clearer description of its construction would improve transparency. Moreover, its dependence on this specific filter raises questions about generalizability to other filtering architectures.
+
+    \RC 3. In experiments, it would be beneficial to include a comparison of CLIP similarity in Section 6.3 to better assess whether different jailbreak methods preserve the original harmful semantic intent. In addition, as far as I know, the ASR typically denotes the overall harmful generation rate, which appears closer to the definition of CHR in this manuscript.
+
+    \RC 4. The relevance of Section 6.5 to the core contribution of the paper could be more clearly articulated. Further explanation of its role in the overall framework would improve coherence.
+
+    \RC 5. The manuscript would benefit from clarifying whether CLIP embeddings are consistently used throughout the implementation. If so, the potential embedding gap across different target models may influence transferability and attack effectiveness. Further discussion and validation on closed-source T2I systems would strengthen the claimed applicability of the proposed method.
+
+    \RC  6. Writing clarity and organization could be improved. For example, Section 2 would benefit from a clearer hierarchical structure and logical segmentation. It may be helpful to first review existing attack methods, then discuss defense strategies. Such restructuring would improve narrative coherence and better highlight the motivation of this work. 
+
+    \AC \giando{La ringraziamo per il commento costruttivo zuccherino di panda. Abbiamo revisionato la Sezione 2 – Related Work migliorandone la struttura e l’organizzazione complessiva. In particolare, abbiamo riorganizzato la sezione distinguendo in modo più chiaro tra i lavori relativi agli attacchi adversariali e quelli relativi alle strategie di difesa, introducendo una segmentazione più esplicita e una progressione logica coerente. Questa ristrutturazione consente di migliorare la chiarezza espositiva e di evidenziare in modo più efficace la motivazione e il contributo del nostro lavoro rispetto allo stato dell’arte.}
+        
+    \RC In addition, the presentation of Equation (1) is somewhat confusing. It would be clearer to first state that the textual prompt is encoded into an embedding representation, and then introduce the corresponding mathematical formulation. The notation also appears inconsistent, as the subscripts λ and（λ） are used ambiguously, and the introduction of T does not seem to serve a clear purpose, which increases the cognitive load for readers. 
+
+    \AC \giando{La ringraziamo per l’osservazione MOLTO MOLTO MOLTO VABBE. Abbiamo revisionato la presentazione dell’Equazione (1) migliorandone la chiarezza espositiva. In particolare, abbiamo introdotto inizialmente una descrizione intuitiva del processo di encoding del prompt testuale, seguita dalla formulazione matematica. Inoltre, abbiamo reso la notazione coerente utilizzando sistematicamente la forma funzionale $\epsilon(\lambda)$ ed eliminato l’introduzione di simboli non essenziali, come $T$, che non venivano utilizzati nelle formulazioni successive, riducendo così il carico cognitivo per il lettore.}
+    
+    \RC Moreover, in Section 3.3, “sexual content” is missing numbering and bold formatting, and the numbering skips from (v) to (vii), which may affect readability. 
+
+    \AC \giando{La ringraziamo per la segnalazione. Abbiamo revisionato la Sezione 3.3 – Sensitive Content Definition correggendo la formattazione e la numerazione delle categorie. In particolare, abbiamo uniformato lo stile (incluso il grassetto per sexual content) e risolto l’incongruenza nella numerazione, garantendo una sequenza coerente e migliorando la leggibilità complessiva.}
+
+    \RC The ADV Classifier mentioned in Section 6.4, and the defense method proposed in Section 4.4 do not correspond in name, which can easily lead to misunderstanding. 
+
+    \AC \giando{Caro zucchero, grazie per il commento. Abbiamo accuratamente revisionato Sezione intitolata \virgolette{Defense Mechanisms Leveraging Multimodal Embedding Decomposition}, ed la Sezione \virgolette{RQ3: Can we develop a defense mechanism capable of blocking adversarial prompt attacks?} al fine di uniformare il nome dei classificatori da noi sviluppati.}
+
+    \RC Furthermore, revising Figure 2 to follow a left-to-right layout could make the workflow more intuitive and consistent with common reading conventions.
+    \hl{Inoltrato progetto canva a giando. }
+\href{https://www.canva.com/design/DAGOwyrOURI/5qdj_Y0Q8b1MWdA7-jLzDw/edit}{https://www.canva.com/design/DAGOwyrOURI/5qdj_Y0Q8b1MWdA7-jLzDw/edit}
+    
+    \RC 7. The manuscript contains a relatively large number of small but recurring formatting and notation inconsistencies that affect readability. 
+    
+    \AC For instance, in Eq. (3) the subscript on the left-hand side appears to be t+1; L is typically typeset in calligraphic form; and it would be helpful to consistently include punctuation at the end of displayed equations; 
+
+    \AC \giando{La ringraziamo per l’osservazione. Abbiamo revisionato l’Equazione (3) correggendo l’indice temporale nel lato sinistro, adottando la forma standard con $t+1$. Inoltre, abbiamo uniformato la notazione della funzione di loss utilizzando la forma calligrafica $\mathcal{L}$ e aggiunto la punteggiatura al termine delle equazioni in tutto il manoscritto per migliorarne la coerenza tipografica e la leggibilità complessiva.}
+    
+    \RC in Section 3.4, the notation should be (ϵ(x)); in Eq. (8) the placement of \∼ seems incorrect; 
+
+    \RC \giando{La ringraziamo per il dolce commento gay. Abbiamo revisionato la notazione nella Sezione 3.4 – Harmful Media Detection and Classification, rendendola pienamente consistente e adottando sistematicamente la forma funzionale $\epsilon(x)$ per indicare l’encoding dell’input. In particolare, abbiamo uniformato l’uso della funzione $s(\cdot)$, esplicitandone la dipendenza da $\epsilon(x)$, e corretto alcune lievi incongruenze notazionali.}
+    
+    \RC in Section 3.5 the line break in “where ATT …” appears to be a formatting error. 
+
+    \AC \giando{La ringraziamo per il magnifico commento zuccherino. Abbiamo revisionato la formattazione nella Sezione 3.5, separando chiaramente le equazioni dalla descrizione testuale. In particolare, la definizione dei termini è ora riportata come frase esplicativa separata dopo le equazioni, migliorandone la leggibilità e la coerenza tipografica.}
+    
+    \RC Additionally, in Figure 4 the left label “sudo-jailbreaking” seems inconsistent with the intended description (it may refer to “optimal replacement”)
+
+    \AC \giando{La ringraziamo sono gay per aver evidenziato questa incongruenza. Abbiamo revisionato la Figura 4 – An overview of the Safety-aware Adversarial Pipeline correggendo l’etichetta nella parte sinistra, sostituendo “SUDO-jailbreaking” con la denominazione corretta “Optimal Replacement”, in linea con la descrizione del primo modulo presentato nella Sezione 4.2 – Optimal Replacement. Questa modifica migliora la coerenza tra figura e testo e rende più chiara la sequenza delle fasi della pipeline proposta.}
+    
+    \RC Table 1 shows inconsistent use of boldface. There are also scattered issues with missing punctuation and singular/plural agreement. Overall, a careful proofreading pass would improve the presentation quality.
+
+    \AC \giando{Caro zucchero, grazie per il commento. Abbiamo accuratamente revisionato la Tabella 1 e corretto il grassetto. non so chegli devo di so gay}
+        
+
+
+\RC What do you see as the <b> three weakest points </b> of this manuscript?:
+
+    \RC 1. Writing clarity. The manuscript would benefit from substantial improvements in writing quality and clarity, as certain sections lack logical coherence and contain numerous minor language and presentation issues.
+
+    \RC 2. Insufficient experimental validation. Although the method is claimed to apply to closed-source models, its jailbreak performance is only evaluated on the open-source Stable Diffusion XL, leaving the claim insufficiently supported.
+
+    \RC 3. Dependence on surrogate embeddings and potential dataset bias. The proposed approach relies heavily on surrogate embeddings and classifiers trained on specific datasets, which may limit robustness and introduce distributional bias, potentially affecting generalization to real-world scenarios.
+
+
+
+
+\AR 
+
+
+
+
+\end{document}
