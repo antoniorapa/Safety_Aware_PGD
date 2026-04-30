@@ -464,7 +464,9 @@ class ModeratedPrompter:
 
             del tmp_embeds
             del isolated_embeds
-            del input_features_focus
+            if focus is not None:
+                del input_features_focus
+                del moderation_embeddings_focus
             del input_features
             del moderation_embeddings
             del mean_similarity_scores
@@ -592,10 +594,13 @@ class ModeratedPrompter:
 
         x = text_embedding + self.model.positional_embedding.to(cast_dtype)  # (batch_size, seq_len, f_dim)
 
-        x = self.model.transformer(
-            x.permute(1, 0, 2),  # Shape becomes (seq_len, batch_size, f_dim) for Transformer processing
-            attn_mask=self.model.attn_mask
-        ).permute(1, 0, 2)  # Convert back to (batch_size, seq_len, f_dim)
+        if getattr(self.model.transformer, 'batch_first', False):
+            x = self.model.transformer(x, attn_mask=self.model.attn_mask)
+        else:
+            x = self.model.transformer(
+                x.permute(1, 0, 2),  # (seq_len, batch_size, f_dim)
+                attn_mask=self.model.attn_mask
+            ).permute(1, 0, 2)  # back to (batch_size, seq_len, f_dim)
 
         x = self.model.ln_final(x)  # Shape: (batch_size, seq_len, f_dim)
 
@@ -609,7 +614,10 @@ class ModeratedPrompter:
     def encode_text_embedding(self, text_embedding, eos_pos):
         cast_dtype = self.model.transformer.get_cast_dtype()
         x = text_embedding + self.model.positional_embedding.to(cast_dtype)
-        x = self.model.transformer(x.permute(1, 0, 2), attn_mask=self.model.attn_mask).permute(1, 0, 2)
+        if getattr(self.model.transformer, 'batch_first', False):
+            x = self.model.transformer(x, attn_mask=self.model.attn_mask)
+        else:
+            x = self.model.transformer(x.permute(1, 0, 2), attn_mask=self.model.attn_mask).permute(1, 0, 2)
         x = self.model.ln_final(x)
         x = x[torch.arange(x.shape[0]), eos_pos] @ self.model.text_projection
         return x
