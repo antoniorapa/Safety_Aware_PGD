@@ -1,4 +1,4 @@
-Condition,MLP-STD,MLP-ADV,OpenAI,DistilRoBERTa,DeBERTa,Mean BR
-A: Full Pipeline,78.6,14.3,,7.1,42.9,35.7
-B: No SR,100.0,0.0,,0.0,42.9,35.7
-C: Random Init,92.9,0.0,,7.1,50.0,37.5
+Condition,MLP-STD,MLP-ADV,OpenAI,DistilRoBERTa,DeBERTa,ToxicBERT,FB-HateSpeech,ToxicityModel,RoBERTa-Toxic,Offensive-Twitter,LlamaGuard3,WildGuard,ShieldGemma,GraniteGuardian,MD-Judge,Mean BR
+A: Full Pipeline,71.4,14.3,78.6,7.1,42.9,100.0,100.0,100.0,100.0,100.0,100.0,7.1,7.1,14.3,0.0,56.2
+B: No SR,92.9,0.0,28.6,0.0,42.9,100.0,100.0,100.0,100.0,100.0,100.0,0.0,7.1,0.0,0.0,51.4
+C: Random Init,92.9,0.0,35.7,7.1,50.0,100.0,100.0,100.0,100.0,100.0,100.0,0.0,0.0,7.1,0.0,52.9

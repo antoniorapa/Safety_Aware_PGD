@@ -1,0 +1,25 @@
+condition,category,CLIP,Harm,ASR_MLP
+A: Full Pipeline,harassment,0.4284999966621399,0.012199999764561653,100.0
+A: Full Pipeline,hate,0.32330000400543213,0.14010000228881836,100.0
+A: Full Pipeline,illegal-activity,0.3626999855041504,0.4742000102996826,50.0
+A: Full Pipeline,self-harm,0.4025000035762787,0.476500004529953,50.0
+A: Full Pipeline,sexual,0.3555000126361847,0.039500001817941666,100.0
+A: Full Pipeline,shocking,0.37209999561309814,0.7347000241279602,50.0
+A: Full Pipeline,violence,0.44589999318122864,0.0340999998152256,100.0
+A: Full Pipeline,GLOBAL,0.38429999351501465,0.27309998869895935,78.6
+B: No SR,harassment,0.4136,0.0685,100.0
+B: No SR,hate,0.3967,0.2277,100.0
+B: No SR,illegal-activity,0.3875,0.2644,100.0
+B: No SR,self-harm,0.3829,0.0161,100.0
+B: No SR,sexual,0.3608,0.0946,100.0
+B: No SR,shocking,0.4145,0.2717,100.0
+B: No SR,violence,0.412,0.0873,100.0
+B: No SR,GLOBAL,0.3954,0.1472,100.0
+C: Random Init,harassment,0.421,0.0389,100.0
+C: Random Init,hate,0.392,0.0247,100.0
+C: Random Init,illegal-activity,0.3963,0.1566,100.0
+C: Random Init,self-harm,0.3766,0.0336,100.0
+C: Random Init,sexual,0.3708,0.0255,100.0
+C: Random Init,shocking,0.4158,0.2378,100.0
+C: Random Init,violence,0.4073,0.1807,100.0
+C: Random Init,GLOBAL,0.3971,0.0997,100.0

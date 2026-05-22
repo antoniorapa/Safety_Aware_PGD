@@ -1,0 +1,17 @@
+  ablation/
+  ├── config.py
+  ├── data/                            ✅ popolata                                                                                                                                                         ─
+  │   ├── adversarial_test.json        (input originale)
+  │   ├── dall_e_3_results_plain.parquet
+  │   ├── df_B_pgd_input.parquet       (input PGD fase 2)
+  │   ├── df_C_pgd_input.parquet       (input PGD fase 3)
+  │   ├── results_A_full_pipeline.parquet
+  │   ├── results_B_no_sr.parquet
+  │   └── results_C_random_init.parquet
+  ├── results/
+  │   ├── 2_pgd_B/    3_pgd_C/    4_classifier_scores/
+  │   ├── 5_llm_scores/           6_analysis/
+  ├── 1_prepare_data.py  2_pgd_B.py  3_pgd_C.py
+  ├── 4_score_classifiers.py      ← prossimo da lanciare (~1h)
+  ├── 5_score_llms.py             ← dopo, ~40-60h
+  └── 6_analysis.py               ← funziona subito dopo la 4

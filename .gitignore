@@ -1,2 +1,28 @@
 /venv_ablation
 /.claude
+
+# credenziali e configurazioni sensibili
+azure_config.json
+
+# dataset da Hugging Face (non versionare)
+**/data/
+OtherCode/Test/Dataset/UnsafeBench_CLEAN.parquet
+
+# file temporanei/runtime
+imgen_gemini_pid.txt
+*.log
+
+# immagini generate dai test (troppo pesanti per git)
+**/images/
+*.png
+*.jpg
+*.jpeg
+
+# output JSON dei test massivi
+soft_moderation_results_*.json
+test_batch_output/
+
+# cache Python
+__pycache__/
+*.pyc
+*.pyo

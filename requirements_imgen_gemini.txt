@@ -1,0 +1,29 @@
+# Requirements for notebooks/MAIN/IMGEN_GEMINI.ipynb
+#
+# NOTE: install PyTorch separately FIRST with the correct CUDA wheel:
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+#
+# Then install the rest:
+#   pip install -r requirements_imgen_gemini.txt
+
+# ── CLIP backbone ────────────────────────────────────────────────────────────
+open-clip-torch>=2.24.0
+ftfy
+
+# ── Google / Vertex AI ───────────────────────────────────────────────────────
+google-genai                    # from google import genai  (image generation)
+google-cloud-aiplatform>=1.69   # import vertexai + vertexai.generative_models
+
+# ── Data ─────────────────────────────────────────────────────────────────────
+pandas>=2.2
+pyarrow>=15.0
+
+# ── ML utils ─────────────────────────────────────────────────────────────────
+scikit-learn
+Pillow
+tqdm
+
+# ── Jupyter ──────────────────────────────────────────────────────────────────
+ipykernel
+ipywidgets
+jupyterlab

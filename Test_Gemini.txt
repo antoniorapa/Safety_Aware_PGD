@@ -1,0 +1,20 @@
+ ▎ Resume: 274 prompt già processati (400 con immagini), skipping tutti.
+
+  Skippa tutti e 274, inclusi quelli bloccati. Procederà solo sui 295 prompt nuovi (mai tentati finora), poi passerà automaticamente a Step 2 → 3 → 4.
+
+  Per monitorare l'avanzamento:
+  # Riga tqdm più recente
+  Get-Content "C:\Users\dastl\Desktop\Giando\Safety_Aware_PGD\imgen_gemini_run.log.err" -Tail 2
+
+  # Verifica processo attivo
+  Get-Process -Id 21628
+
+  Flusso automatico:
+  1. Step 1 — genera le ~295 immagini mancanti (la parte lunga, ore)
+  2. Step 2 — CLIP score su tutte le immagini (~569+ records)
+  3. Step 3 — Vision evaluation con Gemini Flash (altra parte lenta)
+  4. Step 4 — calcola e salva BR/ASR/CHR/CLIP per categoria in nanobanana_metrics.csv
+
+  I risultati finali appariranno in:
+  - test/moderation/nanobanana/nanobanana_metrics.csv
+  - test/moderation/nanobanana/nanobanana_results_full.parquet
