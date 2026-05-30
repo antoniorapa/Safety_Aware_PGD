@@ -11,6 +11,7 @@ OtherCode/Test/Dataset/UnsafeBench_CLEAN.parquet
 # file temporanei/runtime
 imgen_gemini_pid.txt
 *.log
+exec_log*.txt
 
 # immagini generate dai test (troppo pesanti per git)
 **/images/
