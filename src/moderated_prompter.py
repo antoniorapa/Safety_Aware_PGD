@@ -992,8 +992,14 @@ def process_batches(df,prompter, CAT, all_unsafe_words, batch_size=25, n_iterati
             target_prompts_clip.append(None)
 
             # Caricamento immagine
-            img_path = os.path.join('../../data/images/sd/reference', row['category'], row['prompt_folder'],
-                                    f"{row['image_file']}.png")
+            reference_images_root = getattr(self, "reference_images_root", "../../data/images/sd/reference")
+
+            img_path = os.path.join(
+                reference_images_root,
+                row['category'],
+                row['prompt_folder'],
+                f"{row['image_file']}.png"
+            )
             target_images_clip.append(Image.open(img_path))
 
             # Conversione replaced_tokens

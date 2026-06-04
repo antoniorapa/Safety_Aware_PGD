@@ -1,0 +1,13 @@
+diffusers
+transformers
+accelerate
+safetensors
+boto3
+pandas
+pyarrow
+pillow
+tqdm
+open_clip_torchà
+sentence-transformers
+openai
+scikit-learn

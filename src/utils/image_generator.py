@@ -148,3 +148,32 @@ class SLD(AbstractImageGenerator):
 
     def numpy_to_pil(self, images_numpy):
         return self.pipeline.numpy_to_pil(images_numpy)
+
+
+class RealVisXL(AbstractImageGenerator):
+    def __init__(self):
+        super().__init__(
+            base_model_id="SG161222/RealVisXL_V5.0",
+            lora_model_id=None,
+            model_name="RealVisXL_V5_0",
+        )
+
+    def generate_image(self, prompt, num_images=1, num_inferences=50):
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        generator = torch.Generator(device=device).manual_seed(0)
+
+        images = self.pipeline(
+            prompt,
+            generator=generator,
+            num_inference_steps=num_inferences,
+            num_images_per_prompt=num_images
+        )["images"]
+
+        return images
+
+    def numpy_to_pil(self, images_numpy):
+        return self.pipeline.numpy_to_pil(images_numpy)
+
+
+
+    

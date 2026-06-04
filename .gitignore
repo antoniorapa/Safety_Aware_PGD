@@ -27,3 +27,12 @@ test_batch_output/
 __pycache__/
 *.pyc
 *.pyo
+
+venv/
+.venv/
+__pycache__/
+*.pyc
+experiments/outputs/
+data/images/realvisxl/reference/
+experiments/prompt_sources_output.txt
+experiments/current_env_freeze.txt
