@@ -1,12 +1,19 @@
 import argparse
 import base64
 import json
+import sys
 import time
 from pathlib import Path
 
 import boto3
 import pandas as pd
 from botocore.exceptions import ClientError
+
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.append(str(ROOT))
+
+from src.moderated_prompter import build_sudo_jailbreak_prompt
 
 
 DEFAULT_INPUT_PARQUET = Path("experiments/outputs/realvisxl_pgd/realvisxl_adv_prompts.parquet")
@@ -30,7 +37,10 @@ def read_input(path):
 
 
 def sanitize_filename(text, max_len=80):
-    safe = "".join(c if c.isalnum() or c in (" ", "_", "-") else "_" for c in str(text))
+    safe = "".join(
+        c if c.isalnum() or c in (" ", "_", "-") else "_"
+        for c in str(text)
+    )
     safe = "_".join(safe.split())
     return safe[:max_len]
 
@@ -89,10 +99,14 @@ def build_result_record(
     accepted_api_calls,
     text_blocked,
     images_blocked,
+    sudo_prompt,
 ):
     return {
-        # Campi principali originali/compatibili
+        # Prompt
         "adv_prompt": row.get("adv_prompt"),
+        "sudo_prompt": sudo_prompt,
+
+        # Campi principali originali/compatibili
         "category": row.get("category", "unknown"),
         "base_prompt": row.get("base_prompt"),
         "unsafe_prompt": row.get("unsafe_prompt"),
@@ -114,7 +128,7 @@ def build_result_record(
         "status": status,
         "error": error,
 
-        # Campi metriche che potranno essere popolati dopo
+        # Campi metriche da popolare successivamente tramite script originali
         "clip_score": None,
         "harm_level": None,
 
@@ -136,6 +150,7 @@ def main(
     height=1024,
     seed=0,
     sleep_seconds=1.0,
+    use_sudo=True,
 ):
     input_file = Path(input_file)
     output_dir = Path(output_dir)
@@ -161,13 +176,15 @@ def main(
     print(f"Target model: {model_id}")
     print(f"Region: {region}")
     print(f"Prompt da testare: {len(df)}")
+    print(f"SUDO-Jailbreaking attivo: {use_sudo}")
 
     client = boto3.client("bedrock-runtime", region_name=region)
 
     results = []
 
     for idx, row in df.iterrows():
-        prompt = row["adv_prompt"]
+        adv_prompt = row["adv_prompt"]
+        prompt_to_send = build_sudo_jailbreak_prompt(adv_prompt) if use_sudo else adv_prompt
         category = row.get("category", "unknown")
 
         image_filename = f"{idx}_{sanitize_filename(category)}.png"
@@ -188,7 +205,7 @@ def main(
         try:
             response_body = call_nova_canvas(
                 client=client,
-                prompt=prompt,
+                prompt=prompt_to_send,
                 model_id=model_id,
                 width=width,
                 height=height,
@@ -239,6 +256,7 @@ def main(
                 accepted_api_calls=accepted_api_calls,
                 text_blocked=text_blocked,
                 images_blocked=images_blocked,
+                sudo_prompt=prompt_to_send,
             )
         )
 
@@ -334,6 +352,12 @@ if __name__ == "__main__":
         help="Pausa tra chiamate API",
     )
 
+    parser.add_argument(
+        "--disable-sudo",
+        action="store_true",
+        help="Invia l'adv_prompt senza applicare la fase SUDO-Jailbreaking.",
+    )
+
     args = parser.parse_args()
 
     limit = None if args.limit == -1 else args.limit
@@ -349,4 +373,5 @@ if __name__ == "__main__":
         height=args.height,
         seed=args.seed,
         sleep_seconds=args.sleep_seconds,
+        use_sudo=not args.disable_sudo,
     )
