@@ -10,4 +10,4 @@ tqdm
 open_clip_torchà
 sentence-transformers
 openai
-scikit-learn
+scikit-learnrequests
