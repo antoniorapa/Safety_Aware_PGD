@@ -453,7 +453,12 @@ class ModeratedPrompter:
             for i, prompt in enumerate(prompts):
                 extracted_text = re.findall(self.clip_pattern, decoded_prompts[i])[0]  # Simulated regex
                 clip_score = mean_similarity_scores[i].detach().item()
-                moderation_score = (mean_moderation_scores[i]).detach().item()
+                
+                if mean_moderation_scores.dim() == 0:
+                    moderation_score = mean_moderation_scores.detach().item()
+                else:
+                    moderation_score = mean_moderation_scores[i].detach().item()
+
                 loss_value = 1-clip_score+moderation_score
 
                 # Store results in dictionary
@@ -1014,7 +1019,7 @@ def process_batches(df,prompter, CAT, all_unsafe_words, batch_size=25, n_iterati
             target_prompts_clip.append(None)
 
             # Caricamento immagine
-            reference_images_root = getattr(self, "reference_images_root", "../../data/images/sd/reference")
+            reference_images_root = "data/images/realvisxl/reference"
 
             img_path = os.path.join(
                 reference_images_root,

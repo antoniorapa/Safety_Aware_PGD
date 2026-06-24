@@ -165,7 +165,7 @@ def main(
     print("\nCaricamento ModeratedPrompter...")
 
     prompter = ModeratedPrompter(
-        api_key=api_key,
+        api_key="dummy",
         checkpoint_path=str(checkpoint_path),
         device=device,
     )
