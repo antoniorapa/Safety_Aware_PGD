@@ -102,12 +102,10 @@ def main():
     metrics.to_csv(args.output_csv, index=False)
 
     print(metrics)
-    print("Saved CSV:", args.output_csv)
 
     if args.output_latex:
         latex = metrics.to_latex(index=False, float_format="%.4f")
         Path(args.output_latex).write_text(latex, encoding="utf-8")
-        print("Saved LaTeX:", args.output_latex)
 
 
 if __name__ == "__main__":

@@ -68,8 +68,6 @@ def main():
     print("Input prompts:", len(df))
     print("Selected prompts:", len(selected))
     print("Groups:", selected[args.group_col].nunique())
-    print("Saved CSV:", args.output_csv)
-    print("Saved Parquet:", args.output_parquet)
 
 
 if __name__ == "__main__":

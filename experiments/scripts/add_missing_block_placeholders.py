@@ -59,7 +59,6 @@ def main():
 
     placeholder_df = pd.DataFrame(rows)
     final_df = pd.concat([merged, placeholder_df], ignore_index=True)
-
     final_df = final_df.sort_values("original_index").reset_index(drop=True)
 
     Path(args.output_csv).parent.mkdir(parents=True, exist_ok=True)
@@ -69,8 +68,6 @@ def main():
     print("Original merged rows:", len(merged))
     print("Added placeholder rows:", len(placeholder_df))
     print("Final rows:", len(final_df))
-    print("Saved:", args.output_csv)
-    print("Saved:", args.output_parquet)
 
 
 if __name__ == "__main__":

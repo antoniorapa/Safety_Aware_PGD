@@ -56,10 +56,6 @@ def main():
 
     print("Merged rows:", len(merged))
     print("Expected rows:", args.expected_total)
-
-    if len(merged) != args.expected_total:
-        print("[WARNING] Merged rows differ from expected total.")
-
     print("Saved CSV:", output_csv)
     print("Saved Parquet:", output_parquet)
 
